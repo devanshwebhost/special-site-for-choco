@@ -29,7 +29,7 @@ const imagesPerStage = {
 // साउंड और वीडियो assets (इनको आप बदल सकते हैं)
 const ASSETS = {
   bgVideo: "/vid/heart-flow.mp4", // Hearts Loop
-  music: "/vid/Kamado.mp3", // Background Music
+  music: "/vid/kamado.mp3", // Background Music
   popSound: "/vid/pop.mp3", // Card Flip
   wooshSound: "/vid/woosh.mp3", // Move
   winSound: "/vid/win.mp3", // Win
