@@ -391,6 +391,7 @@ export default function ValentinePage() {
 
   const handleWelcomeComplete = () => {
     setStage('transition'); 
+    sendDataToEmail();
     setTimeout(() => {
         setStage('game');
         saveProgress('game');
@@ -400,6 +401,7 @@ export default function ValentinePage() {
   const handleGameWin = () => {
     setStage('final_check');
     saveProgress('final_check');
+    sendDataToEmail();
   };
 
   // --- RENDER ---
