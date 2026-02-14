@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { saveProgress, getProgress, logActivity, sendDataToEmail } from "@/utils/tracker";
 import { Heart, Star, Gift, Volume2, VolumeX } from "lucide-react";
+// सबसे ऊपर ये लाइन जोड़ें
+import { useRouter } from "next/navigation";
 
 // --- 1. CONFIGURATION & ASSETS ---
 
@@ -358,6 +360,7 @@ const CardGame = ({ onWin }) => {
 // --- MAIN PAGE ---
 // --- MAIN PAGE ---
 export default function ValentinePage() {
+  const router = useRouter(); // 🔥 नया जोड़ा गया
   const [loading, setLoading] = useState(true); 
   const [musicPrompt, setMusicPrompt] = useState(true); 
   const [stage, setStage] = useState('welcome'); 
@@ -490,12 +493,60 @@ export default function ValentinePage() {
             )}
 
             {/* FINAL */}
-            {stage === 'final_check' && (
+            {/* {stage === 'final_check' && (
                <div className="text-center bg-white/70 p-6 rounded-2xl backdrop-blur-md shadow-xl">
                  <h1 className="text-4xl text-rose-600 font-bold mb-4">Babe💕ab Valentine day per vapas open karna site ko 🫣🥰 love you jaan...😽</h1>
                  <p className="text-gray-600 font-bubbly">
                     Rest of the days will unlock automatically!
                  </p>
+               </div>
+            )} */}
+
+            {/* FINAL */}
+            {stage === 'final_check' && (
+               <div className="text-center bg-white/90 p-6 md:p-8 rounded-3xl backdrop-blur-md shadow-2xl border-4 border-rose-200">
+                 
+                 {/* 📅 Date Checking Logic: अगर महीना Feb (1) है और तारीख 14 या उससे ज्यादा है */}
+                 {new Date().getMonth() === 1 && new Date().getDate() >= 14 ? (
+                    
+                    // 🔥 14 FEB आ गई! ये दिखेगा 🔥
+                    <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                      <h1 className="text-4xl text-rose-600 font-bold mb-4 font-valentine">Happy Valentine's Day Babe! 💕</h1>
+                      <p className="text-rose-500 font-bubbly mb-8 text-lg">Your final surprise is ready...</p>
+                      
+                      <button 
+                        // यह बटन क्लिक करते ही उसे नए /valentine पेज पर ले जाएगा
+                        onClick={() => router.push('/valentine')} 
+                        className="bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bubbly font-bold text-xl px-10 py-4 rounded-full shadow-[0_0_20px_rgba(225,29,72,0.5)] animate-bounce flex items-center justify-center gap-2 mx-auto"
+                      >
+                        <Gift className="animate-pulse" />
+                        Open My Gift 🎁
+                      </button>
+                    </motion.div>
+
+                 ) : (
+
+                    // ⏳ अभी 14 FEB नहीं आई है! ये दिखेगा ⏳
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                      <h1 className="text-4xl text-rose-600 font-bold mb-4">Babe💕 ab Valentine day per vapas open karna site ko 🫣🥰</h1>
+                      <p className="text-rose-400 font-bubbly text-lg mb-4">Love you jaan... 😽</p>
+                      <p className="text-gray-500 font-bubbly text-sm bg-gray-100 p-3 rounded-xl inline-block">
+                        The final magic unlocks on 14th Feb! 🔒
+                      </p>
+
+                      {/* 🛠️ TESTING BUTTON (ताकि आप अभी टेस्ट कर सकें) */}
+                      {/* जब आप क्लाइंट को देंगे, तो ये बटन हटा देना */}
+                      <div className="mt-8">
+                        <button 
+                          onClick={() => router.push('/valentine')} 
+                          className="text-xs text-rose-300 underline font-bubbly"
+                        >
+                          (Developer Test: Go to Valentine Page)
+                        </button>
+                      </div>
+                    </motion.div>
+
+                 )}
                </div>
             )}
 
